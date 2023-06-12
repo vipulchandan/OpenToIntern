@@ -69,16 +69,23 @@ const createIntern = async (req, res) => {
                 message: 'College not found'
             });
         }
-        let collegeId = college._id;
-        req.body.collegeId = collegeId;
+        const intern = new InternModel({
+            name,
+            email,
+            mobile,
+            collegeId : college._id
+        })
+        await intern.save();
+        // let collegeId = college._id;
+        // req.body.collegeId = collegeId;
         
-        // Create Intern
-        const newIntern = await InternModel.create(req.body);
+        // // Create Intern
+        // const newIntern = await InternModel.create(req.body);
 
         res.status(201).send({
             status: true,
             message: 'Intern created successfully',
-            data: newIntern
+            data: intern
         });
 
     } catch (error) {
