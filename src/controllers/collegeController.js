@@ -71,7 +71,7 @@ const getCollege = async (req, res) => {
         const { collegeName } = req.query;
         
         // Name validation
-        const college = await CollegeModel.findOne({ name: collegeName });
+        const college = await CollegeModel.findOne({ name: collegeName, isDeleted: false });
         if(!college) {
             return res.status(404).send({ 
                 status: false,

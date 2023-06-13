@@ -62,7 +62,7 @@ const createIntern = async (req, res) => {
                 message: 'Please add college name'
             });
         }
-        let college = await CollegeModel.findOne({ name: collegeName });
+        let college = await CollegeModel.findOne({ name: collegeName, isDeleted: false });
         if (!college) {
             return res.status(404).send({
                 status: false,
