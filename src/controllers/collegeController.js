@@ -53,7 +53,7 @@ const createCollege = async (req, res) => {
         if(!logoLink.match(logoLinkRegex)) {
             return res.status(400).send({ 
                 status: false,
-                message: 'College logo link is invalid'
+                message: 'College logo link is invalid. Only jpeg, jpg, gif and png are allowed'
              });
         }
         
@@ -96,7 +96,7 @@ const getCollege = async (req, res) => {
                     name: college.name,
                     fullName: college.fullName,
                     logoLink: college.logoLink,
-                    interns: 'No interns found'
+                    interns: 'No interns found for this college!'
                 }
             });
         }
