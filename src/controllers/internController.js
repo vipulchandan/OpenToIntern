@@ -32,7 +32,7 @@ const createIntern = async (req, res) => {
                 status: false,
                 message: 'Email already exists'
             });
-        }
+        } 
 
         // Mobile Validation
         if (!mobile) {

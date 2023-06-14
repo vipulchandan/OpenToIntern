@@ -13,6 +13,13 @@ const createCollege = async (req, res) => {
                 message: 'College name is required'
              });
         }
+        const nameRegex = /^[A-Za-z]+$/; //
+        if (!name.match(nameRegex)) {
+            return res.status(400).send({ 
+                status: false,
+                message: 'Invalid college name. Only alphabets are allowed'
+            });
+        }
         const existingCollege = await CollegeModel.findOne({ name });
         if(existingCollege) {
             return res.status(400).send({ 
@@ -82,10 +89,16 @@ const getCollege = async (req, res) => {
         // Interns details based on college
         const interns = await InternModel.find({ collegeId: college._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 });
         if(!interns.length) {
-            return res.status(404).send({ 
-                status: false,
-                message: 'No interns found for this college'
-             });
+            return res.status(200).send({
+                status: true,
+                message: 'College details fetched successfully',
+                data: {
+                    name: college.name,
+                    fullName: college.fullName,
+                    logoLink: college.logoLink,
+                    interns: 'No interns found'
+                }
+            });
         }
 
         const collegeDetails = {
